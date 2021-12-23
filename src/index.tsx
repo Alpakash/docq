@@ -3,6 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { ApolloServer } from "apollo-server";
+import { typeDefs } from "./schema/typeDefs";
+import { resolvers } from "./schema/resolvers"
+
+const server = new ApolloServer({typeDefs, resolvers});
+
+server.listen().then(({url}) => {
+	console.log("YOUR API IS RUNNIN! @ " + url);
+})
 
 ReactDOM.render(
 	<React.StrictMode>
