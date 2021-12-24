@@ -7,18 +7,27 @@ module.exports = {
 			plugins: [require("tailwindcss"), require("autoprefixer")],
 		},
 	},
+	target: "node",
 	plugin: reactHotReloadPlugin,
+	externals: [nodeExternals()],
 	webpack: {
 		configure: (webpackConfig) => {
 			webpackConfig.module.rules.push({
 				rules: [
 					{
 						test: /\.mjs$/,
-						include: /node_modules/,
 						type: "javascript/auto",
 					},
+					{
+						test: /\.js$/,
+						exclude: /node_modules/,
+						use: {
+							loader: "babel-loader",
+						},
+					}
 				],
 			});
+
 			return webpackConfig;
 		},
 	},
